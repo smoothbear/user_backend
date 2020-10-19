@@ -10,6 +10,7 @@ import lombok.Getter;
 public enum ErrorCode {
     // common
     BAD_REQUEST(400, "C400-0" ,"Bad Request(Invalid Parameter)"),
+    UNAUTHORIZED(401, "A401-0", "UnAuthorized"),
 
     // auth
     INVALID_TOKEN(401, "A401-0", "Invalid Token");
