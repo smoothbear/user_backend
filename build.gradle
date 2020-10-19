@@ -13,14 +13,26 @@ repositories {
 }
 
 dependencies {
+    // spring boot starter
     implementation 'org.springframework.boot:spring-boot-starter'
+    // spring boot starter web
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // spring security
+    compile 'org.springframework.security:spring-security-web:4.2.2.RELEASE'
+    compile 'org.springframework.security:spring-security-config:4.2.2.RELEASE'
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
+    // lombok
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.16'
+    // validation (For using @Valid Annotation)
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // jackson (JSON Object)
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
+    // junit (Test Code)
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
 }
 
 test {
