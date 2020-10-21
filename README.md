@@ -1,4 +1,5 @@
 # 메인 서버 레포지토리
+[![Build Status](https://travis-ci.org/kjbin0420/user_backend.svg?branch=main)](https://travis-ci.org/github/kjbin0420/user_backend)
 
 ### 사용 프레임 워크 :         <img src="https://user-images.githubusercontent.com/55119239/74508917-976b0d80-4f43-11ea-9c97-f479de176bf3.png" alt="spring-image" height="100" width="200" />
 
