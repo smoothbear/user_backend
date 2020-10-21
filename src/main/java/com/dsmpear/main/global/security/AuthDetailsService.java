@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class AuthDetailsService implements UserDetailsService {
 
     @Override
-    public AuthDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public AuthDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         return null;
     }
 }

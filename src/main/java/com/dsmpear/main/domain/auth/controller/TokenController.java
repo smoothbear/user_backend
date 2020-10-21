@@ -14,6 +14,6 @@ import javax.validation.Valid;
 public class TokenController {
     @PostMapping
     public TokenResponse signIn(@RequestBody @Valid SignInRequest dto) {
-
+        return null;
     }
 }
