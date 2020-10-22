@@ -17,6 +17,6 @@ public class AuthServiceImpl implements AuthService {
     public TokenResponse signIn(SignInRequest dto) {
         return userRepository.findByEmail(dto.getEmail())
                 .filter(user -> passwordEncoder.matches(dto.getPassword(), user.getPassword()))
-                    .map(User::)
+                    .map(User)
     }
 }
