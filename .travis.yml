@@ -1,23 +1,16 @@
 language: java
 jdk:
-  - openjdk11
-
+- openjdk11
 branches:
   only:
-    - develop
-
-# Travis CI 서버의 Cache 활성화
+  - develop
 cache:
   directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.gradle'
-
-# clean 후 Build (Build시 자동으로 test 수행)
+  - "$HOME/.m2/repository"
+  - "$HOME/.gradle"
 script: "./gradlew clean build"
-
 after_success:
-  - ./gradlew jacocoTestReport coveralls
-
+- "./gradlew jacocoTestReport coveralls"
 notification:
   slack:
-    secure: M5mz1zj3CeF/20PXAWaTGiXNrYxwWiFcnxq7P1EBz0cwVUMxcjaDNYFUsOXkKHwZziF5GJPfaN/LuM3xYOhwAmElg9L/9xtxpDIBcVfk4xMEMuKWj53uE2z2eXxk7j8MlPTX4NSnLXJnOiNfyzBg4h/PV7vIOM3EGDfyHQ544hVKvViAm4gvL9kl28Y0k4N8eANP5IG1u0pBKFS4t+0/t3vTBcMc774koMFbE4Q8RYq5FzheOxI3CTURqVlzUGsCenftahZDe92yGFs2ZxFHKrEzIb5w+15STvzQ14Bi2yoD4eBzwFIZ6cRgLjyYVOQkoF2kYFG2H6dxYqbCOi6Ra3hi/aneoKa6g4fg53LWOM7Uqc9E7cthNiMkI2YX6afWSr8K0bM+kAU7r974w8ExKbB1BCbX8oaK7aYwPDVCCUhbdT/X73j47gyl8yJmUZn/i2xRelvVUC+y/+4/x6X5FpebpadXTSi8vy0RIabzJrKTzj/Lh4zbFevf4W7hjNUi2ALtfnRWP9Huru3wE0+J98O4Ke0unaxDLIB40T3brpyPpFLPOkBMd78qdryd+vZS7FVM1tEpi4ASiPZERm7eDiB2Ze5S+WNg6x6rcc5ELcTozbJN9gCPMb+o0+8IJ7e4IhyRL7S7EdgqFmoShYslujwOBY2vxYEMA8mY6z7TYhg=
+    secure: TnACY1KgKXyVjkBHyDaR65zsboBeUE1myeqBaQDORrCXhNe4s6/GsB8T9FP3Qi1uUY/PRPLGTLOfKbFuTSxSuigQeGeNlDmaYXCc9tBlHEw7bQPDA9AyiTQdw7Ee0/m03fqQPPpIo+fw3LdHhkxgYcKqyNw+RMfuvRb697v7/D83Cn7duM03eT/DGLartJ3zszlfJfpMUQ8q6CAGm5r/XEss7Hi1YLOPvNEi9xI9kJWrSxsX3OEy0s1yS321tqwUnu2WG2CrvwqmclX6xEIMe7IzLOnP/0Rnc2EcsEJMNbHo6fMedGUG8+RZ39m5ZhQOpytD0VyR1Ph/gBE7S+ymeernEgK9FWRKeTv8Bf6/cdk1qvTodalNSBO1xx6lm93ndLjp2qmOrV6+Lw/Ef+2U8WqufMF4YYn3q2qh2Q4xE8cPTq9C0PzrgkgHJlU3YcYYvKmacFHsp+eyAlhDNAWJzf4BB0wr6WxionY5QUti2zn8yUQheeaNN8AmEKziopCqjjLL9LlXg+DICv2K+8Qb8UlHBqEeyt+3vP3JRJVuzrQ8T6WYAN3Wdnf+p0rJCaI8HAlKyoFr9DTjkG9ozQTt70F3reyKUYjzE705JQWUbu4pLlfHkqeqtwbjK0OOAVu6RHxHFNVtNqqEwmyzEwcXyVnTpcp0nExFeD/wSaWjMMY=
