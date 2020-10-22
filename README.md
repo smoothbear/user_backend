@@ -1,6 +1,4 @@
 # 메인 서버 레포지토리
-[![Build Status](https://travis-ci.org/kjbin0420/user_backend.svg?branch=main)](https://travis-ci.org/github/kjbin0420/user_backend)
-
 [![Build Status](https://travis-ci.org/DSM-PEAR/user_backend.svg?branch=develop)](https://travis-ci.org/github/DSM-PEAR/user_backend)
 [![Coverage Status](https://coveralls.io/repos/github/DSM-PEAR/user_backend/badge.svg?branch=main)](https://coveralls.io/github/DSM-PEAR/user_backend?branch=main)
 ----------------
