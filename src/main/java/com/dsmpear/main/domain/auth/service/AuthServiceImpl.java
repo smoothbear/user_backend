@@ -1,7 +1,7 @@
 package com.dsmpear.main.domain.auth.service;
 
-import com.dsmpear.main.domain.auth.domain.refreshtoken.RefreshToken;
-import com.dsmpear.main.domain.auth.domain.refreshtoken.RefreshTokenRepository;
+import com.dsmpear.main.domain.auth.entity.refreshtoken.RefreshToken;
+import com.dsmpear.main.domain.auth.entity.refreshtoken.RefreshTokenRepository;
 import com.dsmpear.main.domain.auth.dto.request.SignInRequest;
 import com.dsmpear.main.domain.auth.dto.response.TokenResponse;
 import com.dsmpear.main.domain.auth.exceptions.UserNotFoundException;
