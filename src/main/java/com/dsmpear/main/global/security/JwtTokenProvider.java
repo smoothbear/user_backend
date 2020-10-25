@@ -1,6 +1,8 @@
 package com.dsmpear.main.global.security;
 
 import com.dsmpear.main.domain.auth.exceptions.InvalidTokenException;
+import com.dsmpear.main.global.security.auth.AuthDetails;
+import com.dsmpear.main.global.security.auth.AuthDetailsService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -32,18 +34,20 @@ public class JwtTokenProvider {
 
     private final AuthDetailsService authDetailsService;
 
-    public String generateAccessToken() {
+    public String generateAccessToken(Long id) {
         return Jwts.builder()
                 .setIssuedAt(new Date())
+                .setSubject(id.toString())
                 .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpiration * 1000))
                 .claim("type", "access_token")
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
-    public String generateRefreshToken() {
+    public String generateRefreshToken(Long id) {
         return Jwts.builder()
                 .setIssuedAt(new Date())
+                .setSubject(id.toString())
                 .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpiration * 1000))
                 .claim("type", "refresh_token")
                 .signWith(SignatureAlgorithm.HS256, secretKey)
