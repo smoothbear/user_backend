@@ -1,4 +1,4 @@
-package com.dsmpear.main.domain.user.domain;
+package com.dsmpear.main.domain.user.entity;
 
 import org.springframework.data.repository.CrudRepository;
 
