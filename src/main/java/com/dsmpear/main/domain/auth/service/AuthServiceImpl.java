@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
                     .map(User::getId)
                     .map(id -> {
                         String refreshToken = jwtTokenProvider.generateRefreshToken(id);
-                        return new RefreshToken(null, refreshToken, refreshExp);
+                        return new RefreshToken(id, refreshToken, refreshExp);
                     })
                     .map(refreshTokenRepository::save)
                     .map(refreshToken -> {

@@ -72,31 +72,17 @@ public class TokenControllerTest {
         tokenRepository.deleteAll();
     }
 
-    /* @Test
+    @Test
     public void signInTest() throws Exception {
-        signIn();
-    }
-
-    private MvcResult signIn() throws Exception {
         String url = "http://localhost:" + port;
 
-        SignInRequest request = new SignInRequest(passwordEncoder.encode("1111"), "asdf@dsm.hs.kr");
+        SignInRequest request = new SignInRequest("1111", "asdf@dsm.hs.kr");
 
-        return mvc.perform(post(url + "/auth")
+        mvc.perform(post(url + "/auth")
                 .content(new ObjectMapper()
                         .setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
                         .writeValueAsString(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andReturn();
-    }
-    */
-    
-    @Test
-    public void auth() throws Exception {
-        String url = "http://localhost:" + port;
-
-        mvc.perform(put(url + "/auth"))
                 .andExpect(status().isOk());
     }
 }
