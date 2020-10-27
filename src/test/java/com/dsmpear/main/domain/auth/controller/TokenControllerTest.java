@@ -5,27 +5,35 @@ import com.dsmpear.main.domain.auth.entity.refreshtoken.RefreshToken;
 import com.dsmpear.main.domain.auth.entity.refreshtoken.RefreshTokenRepository;
 import com.dsmpear.main.domain.user.entity.User;
 import com.dsmpear.main.domain.user.entity.UserRepository;
+import com.dsmpear.main.global.security.TokenFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Optional;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = TokenController.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
+@AutoConfigureMockMvc
 public class TokenControllerTest {
     @LocalServerPort
     private int port;
@@ -33,6 +41,7 @@ public class TokenControllerTest {
     @Autowired
     private WebApplicationContext context;
 
+    @Autowired
     private MockMvc mvc;
 
     @Autowired
@@ -41,23 +50,19 @@ public class TokenControllerTest {
     @Autowired
     private UserRepository userRepository;
 
-    @BeforeEach
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Before
     public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .build();
 
-        tokenRepository.save(
-                RefreshToken.builder()
-                        .refreshToken("asdf")
-                        .refreshExp(10000L)
-                        .build()
-        );
-
         userRepository.save(
                 User.builder()
                      .email("asdf@dsm.hs.kr")
-                    .password("1111")
+                    .password(passwordEncoder.encode("1111"))
                 .build()
         );
     }
@@ -67,7 +72,7 @@ public class TokenControllerTest {
         tokenRepository.deleteAll();
     }
 
-    @Test
+    /* @Test
     public void signInTest() throws Exception {
         signIn();
     }
@@ -75,7 +80,7 @@ public class TokenControllerTest {
     private MvcResult signIn() throws Exception {
         String url = "http://localhost:" + port;
 
-        SignInRequest request = new SignInRequest("1111", "asdf@dsm.hs.kr");
+        SignInRequest request = new SignInRequest(passwordEncoder.encode("1111"), "asdf@dsm.hs.kr");
 
         return mvc.perform(post(url + "/auth")
                 .content(new ObjectMapper()
@@ -84,5 +89,14 @@ public class TokenControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andReturn();
+    }
+    */
+    
+    @Test
+    public void auth() throws Exception {
+        String url = "http://localhost:" + port;
+
+        mvc.perform(put(url + "/auth"))
+                .andExpect(status().isOk());
     }
 }
