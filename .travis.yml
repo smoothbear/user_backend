@@ -9,7 +9,9 @@ cache:
   - "$HOME/.m2/repository"
   - "$HOME/.gradle"
 script: "./gradlew clean build"
+
 after_success:
 - ./gradlew jacocoTestReport coveralls
+
 notifications:
   slack: pear-ldh1042:mCNcIVNrZs0gIBnTWbi2Sf4C
