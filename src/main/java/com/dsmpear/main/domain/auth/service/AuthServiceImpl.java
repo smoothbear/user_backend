@@ -25,7 +25,6 @@ public class AuthServiceImpl implements AuthService {
     @Value("${auth.jwt.exp.refresh}")
     private Long refreshExp;
 
-
     @Override
     public TokenResponse signIn(SignInRequest dto) {
         return userRepository.findByEmail(dto.getEmail())
