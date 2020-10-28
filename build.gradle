@@ -61,3 +61,7 @@ jacocoTestReport {
         html.enabled = true
     }
 }
+
+coveralls {
+    sourceDirs += ['src/main/kotlin']
+}
