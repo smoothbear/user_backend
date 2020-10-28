@@ -4,7 +4,7 @@ jdk:
 
 env:
   global:
-    - CODECOV_TOKEN=:ab6169c8-6c03-48e5-a0f5-d5e40401f0cb
+    - CODECOV_TOKEN="ab6169c8-6c03-48e5-a0f5-d5e40401f0cb"
 
 branches:
   only:
