@@ -4,7 +4,7 @@ jdk:
 
 env:
   global:
-    - COVERALLS_REPO_TOKEN=SNBPPWT3YTXYgpAleQFJzY5D7P551xGtC
+    - CODECOV_TOKEN=:ab6169c8-6c03-48e5-a0f5-d5e40401f0cb
 
 branches:
   only:
@@ -13,10 +13,12 @@ cache:
   directories:
   - "$HOME/.m2/repository"
   - "$HOME/.gradle"
-script: "./gradlew clean build"
+script:
+  - ./gradlew clean build
+  - ./gradlew codeCoverageReport
 
 after_success:
-- ./gradlew jacocoTestReport coveralls
+- bash <(curl -s https://codecov.io/bash)
 
 notifications:
   slack: pear-ldh1042:mCNcIVNrZs0gIBnTWbi2Sf4C

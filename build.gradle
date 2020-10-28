@@ -9,10 +9,10 @@ plugins {
     id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
-    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.8.2'
 }
 
-apply plugin: 'coveralls'
+apply plugin: 'jacoco'
 
 group = 'com.dsm-pear'
 version = '0.0.1-SNAPSHOT'
@@ -57,9 +57,13 @@ test {
     useJUnitPlatform()
 }
 
-jacocoTestReport {
+task codeCoverageReport(type: JacocoReport) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
     reports {
         xml.enabled true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        html.enabled false
         csv.enabled false
     }
 }
