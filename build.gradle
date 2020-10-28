@@ -58,11 +58,14 @@ test {
     useJUnitPlatform()
 }
 
-jacocoTestReport {
+task jacocoRootReport(type: JacocoReport) {
+    dependsOn = subprojects.test
+    sourceDirectories.setFrom(files(subprojects.sourceSets.main.allSource.srcDirs))
+    classDirectories.setFrom(files(subprojects.sourceSets.main.output))
+    executionData.setFrom(files(subprojects.jacocoTestReport.executionData))
     reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
         html.enabled = true
-
-        xml.destination file("$buildDir/cobertura/coverage.xml")
+        xml.enabled = true
+        csv.enabled = false
     }
 }
