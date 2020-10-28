@@ -11,7 +11,7 @@ cache:
 script: "./gradlew clean build"
 
 after_success:
-- ./gradlew jacocoTestReport coveralls
+- ./gradlew pitest coveralls
 
 notifications:
   slack: pear-ldh1042:mCNcIVNrZs0gIBnTWbi2Sf4C
