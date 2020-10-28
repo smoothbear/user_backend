@@ -1,6 +1,11 @@
 language: java
 jdk:
 - openjdk11
+
+env:
+  global:
+    - COVERALLS_REPO_TOKEN=SNBPPWT3YTXYgpAleQFJzY5D7P551xGtC
+
 branches:
   only:
   - develop
