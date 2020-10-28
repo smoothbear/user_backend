@@ -61,5 +61,3 @@ task codeCoverageReport(type: JacocoReport) {
         html.enabled false
     }
 }
-
-check.dependsOn jacocoTestReport
