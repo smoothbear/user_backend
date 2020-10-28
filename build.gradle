@@ -57,17 +57,8 @@ test {
 }
 
 task jacocoRootReport(type: JacocoReport) {
-    getSourceDirectories().setFrom('library/src/main/java')
-    getClassDirectories().setFrom('library/build/intermediates/classes/debug')
-    getExecutionData().setFrom(files(subprojects.jacocoTestReport.executionData))
-
     reports {
         html.enabled = true // human readable
         xml.enabled = true // required by coveralls
     }
-}
-
-coveralls {
-    sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
 }
