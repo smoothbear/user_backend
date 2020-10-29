@@ -8,9 +8,8 @@ plugins {
     id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
+    id 'jacoco'
 }
-
-apply plugin: 'jacoco'
 
 group = 'com.dsm-pear'
 version = '0.0.1-SNAPSHOT'
@@ -55,9 +54,7 @@ test {
     useJUnitPlatform()
 }
 
-task codeCoverageReport(type: JacocoReport) {
-    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
-    
+jacocoTestReport {
     reports {
         xml.enabled true
         xml.destination file("${buildDir}/reports/jacoco/report.xml")
