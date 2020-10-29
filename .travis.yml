@@ -15,7 +15,7 @@ cache:
   - "$HOME/.gradle"
 script:
   - ./gradlew clean build
-  - ./gradlew codeCoverageReport
+  - ./gradlew jacocoTestReport
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
