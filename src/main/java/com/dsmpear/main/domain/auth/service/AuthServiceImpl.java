@@ -1,9 +1,11 @@
 package com.dsmpear.main.domain.auth.service;
 
+import com.dsmpear.main.domain.auth.dto.response.AccessTokenResponse;
 import com.dsmpear.main.domain.auth.entity.refreshtoken.RefreshToken;
 import com.dsmpear.main.domain.auth.entity.refreshtoken.RefreshTokenRepository;
 import com.dsmpear.main.domain.auth.dto.request.SignInRequest;
 import com.dsmpear.main.domain.auth.dto.response.TokenResponse;
+import com.dsmpear.main.domain.auth.exceptions.InvalidTokenException;
 import com.dsmpear.main.domain.auth.exceptions.UserNotFoundException;
 import com.dsmpear.main.domain.user.entity.User;
 import com.dsmpear.main.domain.user.entity.UserRepository;
@@ -26,19 +28,35 @@ public class AuthServiceImpl implements AuthService {
     private Long refreshExp;
 
     @Override
-    public TokenResponse signIn(SignInRequest dto) {
-        return userRepository.findByEmail(dto.getEmail())
-                .filter(user -> passwordEncoder.matches(dto.getPassword(), user.getPassword()))
-                    .map(User::getId)
-                    .map(id -> {
-                        String refreshToken = jwtTokenProvider.generateRefreshToken(id);
-                        return new RefreshToken(id, refreshToken, refreshExp);
+    public TokenResponse signIn(SignInRequest request) {
+        return userRepository.findByEmail(request.getEmail())
+                .filter(user -> passwordEncoder.matches(request.getPassword(), user.getPassword()))
+                    .map(User::getEmail)
+                    .map(email -> {
+                        String refreshToken = jwtTokenProvider.generateRefreshToken(email);
+                        return new RefreshToken(email, refreshToken, refreshExp);
                     })
                     .map(refreshTokenRepository::save)
                     .map(refreshToken -> {
-                        String accessToken = jwtTokenProvider.generateAccessToken(refreshToken.getId());
-                        return new TokenResponse(accessToken, refreshToken.getRefreshToken());
+                        String accessToken = jwtTokenProvider.generateAccessToken(refreshToken.getEmail());
+                        return new TokenResponse(accessToken, refreshToken.getRefreshToken(), refreshToken.getRefreshExp());
                     })
+                .orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public AccessTokenResponse tokenRefresh(String receivedToken) {
+        if (!jwtTokenProvider.isRefreshToken(receivedToken)) {
+            throw new InvalidTokenException();
+        }
+
+        return refreshTokenRepository.findByRefreshToken(receivedToken)
+                .map(refreshToken -> {
+                    String generateRefreshToken = jwtTokenProvider.generateRefreshToken(refreshToken.getEmail());
+                    return refreshToken.update(generateRefreshToken, refreshExp);
+                })
+                .map(refreshTokenRepository::save)
+                .map(refreshToken -> new AccessTokenResponse(jwtTokenProvider.generateAccessToken(refreshToken.getEmail())))
                 .orElseThrow(UserNotFoundException::new);
     }
 }

@@ -12,12 +12,18 @@ import javax.persistence.*;
 @NoArgsConstructor @AllArgsConstructor @Getter
 @Builder
 public class RefreshToken {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private String email;
 
     @Column(nullable = false)
     private String refreshToken;
 
     @Column(nullable = false)
     private Long refreshExp;
+
+    public RefreshToken update(String refreshToken, Long refreshExp) {
+        this.refreshToken = refreshToken;
+        this.refreshExp = refreshExp;
+        return this;
+    }
 }

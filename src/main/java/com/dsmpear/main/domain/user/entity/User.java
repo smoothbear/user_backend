@@ -11,10 +11,7 @@ import javax.persistence.*;
 @Table(name = "user")
 @Getter @Builder @NoArgsConstructor @AllArgsConstructor
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true)
+    @Id
     private String email;
 
     @Column(nullable = false)

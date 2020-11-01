@@ -3,7 +3,6 @@ package com.dsmpear.main.global.error.exception;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
